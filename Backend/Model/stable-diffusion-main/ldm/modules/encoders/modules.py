@@ -135,18 +135,20 @@ class SpatialRescaler(nn.Module):
         return self(x)
 
 class FrozenCLIPEmbedder(AbstractEncoder):
-    """Uses the CLIP transformer encoder for text (from Hugging Face)"""
-    def __init__(self, version="openai/clip-vit-large-patch14", device="cuda", max_length=77):
+    def __init__(self, version="openai/clip-vit-large-patch14", device=None, max_length=77):
         super().__init__()
+        if device is None:
+            device = "cuda" if torch.cuda.is_available() else "cpu"
+        self.device = torch.device(device)
+
         self.tokenizer = CLIPTokenizer.from_pretrained(version)
-        self.transformer = CLIPTextModel.from_pretrained(version)
-        self.device = device
+        self.transformer = CLIPTextModel.from_pretrained(version).to(self.device)
         self.max_length = max_length
         self.freeze()
 
     def freeze(self):
         self.transformer = self.transformer.eval()
-        for param in self.parameters():
+        for param in self.transformer.parameters():
             param.requires_grad = False
 
     def forward(self, text):

@@ -238,7 +238,7 @@ def main():
     #     raise NotImplementedError("PLMS sampler not (yet) supported")
     #     sampler = PLMSSampler(model)
     # else:
-    sampler = DDIMSampler(model)
+    sampler = DDIMSampler(model,device=device)
 
     os.makedirs(opt.outdir, exist_ok=True)
     outpath = opt.outdir

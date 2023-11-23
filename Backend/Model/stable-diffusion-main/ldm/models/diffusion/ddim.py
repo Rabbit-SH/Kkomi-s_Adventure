@@ -10,16 +10,16 @@ from ldm.modules.diffusionmodules.util import make_ddim_sampling_parameters, mak
 
 
 class DDIMSampler(object):
-    def __init__(self, model, schedule="linear", **kwargs):
+    def __init__(self, model, schedule="linear", device=torch.device("cpu"), **kwargs):
         super().__init__()
-        self.model = model
+        self.model = model.to(device)
         self.ddpm_num_timesteps = model.num_timesteps
         self.schedule = schedule
+        self.device = device
 
     def register_buffer(self, name, attr):
-        if type(attr) == torch.Tensor:
-            if attr.device != torch.device("cuda"):
-                attr = attr.to(torch.device("cuda"))
+        if isinstance(attr, torch.Tensor):
+            attr = attr.to(self.device)
         setattr(self, name, attr)
 
     def make_schedule(self, ddim_num_steps, ddim_discretize="uniform", ddim_eta=0., verbose=True):
@@ -114,13 +114,13 @@ class DDIMSampler(object):
         return samples, intermediates
 
     @torch.no_grad()
-    def ddim_sampling(self, cond, shape,
-                      x_T=None, ddim_use_original_steps=False,
-                      callback=None, timesteps=None, quantize_denoised=False,
+    def ddim_sampling(self, cond, shape, x_T=None, ddim_use_original_steps=False,
+                      callback=None, timesteps=None, quantize_denoised=False, 
                       mask=None, x0=None, img_callback=None, log_every_t=100,
-                      temperature=1., noise_dropout=0., score_corrector=None, corrector_kwargs=None,
-                      unconditional_guidance_scale=1., unconditional_conditioning=None,):
-        device = self.model.betas.device
+                      temperature=1., noise_dropout=0., score_corrector=None, 
+                      corrector_kwargs=None, unconditional_guidance_scale=1., 
+                      unconditional_conditioning=None):
+        device = self.device  # 장치 지정
         b = shape[0]
         if x_T is None:
             img = torch.randn(shape, device=device)
