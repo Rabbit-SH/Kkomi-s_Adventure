@@ -53,28 +53,65 @@ def load_model_from_config(config, ckpt,cuda, verbose=False):
     return model,device
 
 
+
+
 # def load_img(path):
-#     image = Image.open(path).convert("RGB")
+#     image = Image.open(path).convert("L")  
 #     w, h = image.size
 #     print(f"loaded input image of size ({w}, {h}) from {path}")
 #     w, h = map(lambda x: x - x % 64, (w, h))  # resize to integer multiple of 32
-#     image = image.resize((w, h), resample=PIL.Image.LANCZOS)
+#     image = image.resize((w, h), resample=Image.LANCZOS)
 #     image = np.array(image).astype(np.float32) / 255.0
+#     image = np.repeat(image[:, :, np.newaxis], 3, axis=2) 
 #     image = image[None].transpose(0, 3, 1, 2)
 #     image = torch.from_numpy(image)
-#     return 2.*image - 1.
+#     return 2. * image - 1.
+
+# def load_img(path):
+#     image = Image.open(path).convert("L")  
+#     w, h = image.size
+#     print(f"loaded input image of size ({w}, {h}) from {path}")
+    
+#     new_size = (512, 512)
+#     image = image.resize(new_size, resample=Image.LANCZOS)
+    
+#     left = (512 - new_size[0]) // 2
+#     top = (512 - new_size[1]) // 2
+#     right = (512 + new_size[0]) // 2
+#     bottom = (512 + new_size[1]) // 2
+#     image = image.crop((left, top, right, bottom))
+    
+#     image = np.array(image).astype(np.float32) / 255.0
+#     image = np.repeat(image[:, :, np.newaxis], 3, axis=2)  
+#     image = image[None].transpose(0, 3, 1, 2)
+#     image = torch.from_numpy(image)
+#     return 2. * image - 1.
 
 def load_img(path):
-    image = Image.open(path).convert("L")  # 이미지 grayscale로 로드
+    image = Image.open(path).convert("L")  
     w, h = image.size
     print(f"loaded input image of size ({w}, {h}) from {path}")
-    w, h = map(lambda x: x - x % 64, (w, h))  # resize to integer multiple of 32
-    image = image.resize((w, h), resample=Image.LANCZOS)
+    
+    if w > h:
+        new_w, new_h = 512, int(512 * (h / w))
+    else:
+        new_w, new_h = int(512 * (w / h)), 512
+    
+    image = image.resize((new_w, new_h), resample=Image.LANCZOS)
+    
+    left = (new_w - 512) // 2
+    top = (new_h - 512) // 2
+    right = left + 512
+    bottom = top + 512
+    
+    image = image.crop((left, top, right, bottom))
+    
     image = np.array(image).astype(np.float32) / 255.0
-    image = np.repeat(image[:, :, np.newaxis], 3, axis=2)  # 3채널로 복제
+    image = np.repeat(image[:, :, np.newaxis], 3, axis=2)  
     image = image[None].transpose(0, 3, 1, 2)
     image = torch.from_numpy(image)
     return 2. * image - 1.
+
 
 
 def main():
