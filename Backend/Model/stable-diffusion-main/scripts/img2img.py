@@ -137,7 +137,7 @@ def main():
         type=str,
         nargs="?",
         help="dir to write results to",
-        default="/outputs/img2img"
+        default="./outputs"
     )
 
     parser.add_argument(
@@ -237,13 +237,13 @@ def main():
     parser.add_argument(
         "--config",                           # 모델을 구성하는 설정 파일의 경로
         type=str,
-        default="/configs/stable-diffusion/v1-inference.yaml",
+        default="./configs/stable-diffusion/v1-inference.yaml",
         help="path to config which constructs model",
     )
     parser.add_argument(
         "--ckpt",
         type=str,                          # 모델 체크포인트 파일의 경로
-        default="/models/ldm/stable-diffusion/soomuk_all.ckpt",
+        default="./models/ldm/stable-diffusion/soomuk_all.ckpt",
         help="path to checkpoint of model",
     )
     parser.add_argument(
