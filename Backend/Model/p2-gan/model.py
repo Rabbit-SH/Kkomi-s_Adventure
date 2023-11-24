@@ -83,6 +83,7 @@ def build_discriminator(inp, patch_size=9, is_training=True,
 		'updates_collections': batch_norm_updates_collections,
 		'is_training': is_training
 	}
+	# 판별자 구축
 	with slim.arg_scope([slim.batch_norm], **batch_norm_params):
 		with tf.variable_scope(name, reuse=reuse):
 			# conv s1

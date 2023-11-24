@@ -119,8 +119,9 @@ TRAIN_SET = len(input_ls)
 gpu_options = tf.GPUOptions(allow_growth=True)
 with tf.Session(config=tf.ConfigProto(gpu_options=gpu_options)) as sess:
 # with tf.Session() as sess:
-	#RGB 형태  build 안에 들어간다 정규화가 되어있어야만함 근데 여긴 없다?
+	# 판별자 입력 텐서
 	input_s = tf.placeholder(tf.float32, shape=[BATCH_SIZE, PSI_D_SIZE, PSI_D_SIZE, 3], name='inps')
+	# 생성자 입력 텐서
 	input_c = tf.placeholder(tf.float32, shape=[BATCH_SIZE, G_IMG_SIZE, G_IMG_SIZE, 3], name='inpc')
 
 	vgg_c = vgg16part.Vgg16()
