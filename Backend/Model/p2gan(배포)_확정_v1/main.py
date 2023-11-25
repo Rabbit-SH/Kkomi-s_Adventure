@@ -5,10 +5,7 @@ import time
 import model
 from sklearn.cluster import KMeans
 from PIL import Image
-import requests
 
-
-## 전처리 
 def segment_image(image, k=3):
 
     # 이미지를 NumPy 배열로 변환
@@ -43,61 +40,47 @@ def adjust_brightness_dynamic(image, dark_factor=1.5, bright_factor=1):
 
     return adjusted_image
 
-def load_and_preprocess(image_url):
+def load_and_preprocess(image_path):
 
-    # url에서 이미지 가져오기
-    response = requests.get(image_url)
-    
-    # 요청이 성공적으로 되는지 확인
-    if response.status_code == 200:
-        
-        # 이미지를 numpy로 변환
-        image_array = np.asarray(bytearray(response.content), dtype=np.uint8)    
-        # 이미지 읽기
-        image = cv2.imdecode(image_array, cv2.IMREAD_COLOR)
-        # 이미지 전처리 단계 수행
-        height, width = image.shape[:2]
-        
-        # 이미지 압축
-        # 이미지 크기가 1024x1024보다 작으면 크기 조정 X
-        if width > 1024 or height > 1024:
-            resized_image = cv2.resize(image, (width // 2, height // 2))
-            print("이미지 조정 완료!")
-        else:
-            resized_image = image
-            print("이미지 조정 안했습니다")
-            
-        # color segmentation 
-        segmented_img = segment_image(resized_image, 5)
+    # 이미지 읽어오기
+    image = cv2.imread(image_path)
 
-        # 이미지 numpy 배열로 변환
-        if isinstance(segmented_img, Image.Image):
-            segmented_img = np.array(segmented_img)
+    # 이미지 크기 확인
+    height, width = image.shape[:2]
 
-        # 클라해 적용을 위해 gray image로 변경 
-        gray_image = cv2.cvtColor(segmented_img, cv2.COLOR_BGR2GRAY)
+    # 이미지 크기 조정
+    scale_factor = min(1024.0 / width, 1024.0 / height)
+    new_width = int(width * scale_factor)
+    new_height = int(height * scale_factor)
+    resized_image = cv2.resize(image, (new_width, new_height))
 
-        # 클라해 적용
-        clahe = cv2.createCLAHE(clipLimit=2.5, tileGridSize=(8, 8))
-        clahe_image = clahe.apply(gray_image)
+    # color segmentation
+    segmented_img = segment_image(resized_image, 5)
 
-        # 이미지 명도 조절
-        dynamic_img = adjust_brightness_dynamic(clahe_image)
+    #numpy 오류 해결
+    if isinstance(segmented_img, Image.Image):
+        segmented_img = np.array(segmented_img)
 
-        # 흑백 이미지를 컬러 형식으로 변환
-        color_image = cv2.cvtColor(dynamic_img, cv2.COLOR_GRAY2BGR)
+    # 그레이스케일로 변경
+    gray_image = cv2.cvtColor(segmented_img, cv2.COLOR_BGR2GRAY)
 
-        return color_image
-    
-    else:
-        print("서버 연결 실패", response.status_code)
-        return None
+    # 클라해 수행
+    # Adaptive Histogram Equalization 적용
+    clahe = cv2.createCLAHE(clipLimit=2.5, tileGridSize=(8, 8))
+    clahe_image = clahe.apply(gray_image)
+
+    # 픽셀 조절
+    dynamic_img = adjust_brightness_dynamic(clahe_image)
+
+    dynamic_img = cv2.cvtColor(dynamic_img, cv2.COLOR_GRAY2BGR)
+
+    return dynamic_img
 
 
 ## 이미지 스타일 변환
-def main(input_url, output_url): 
-
-    preprocessed_img = load_and_preprocess(input_url)
+def main(input_path, output_path): 
+    
+    preprocessed_img = load_and_preprocess(input_path)
 
     device = 'cpu'
     batch_size = 1
@@ -140,8 +123,8 @@ def main(input_url, output_url):
     result_img = ((render_oup[0] + 1) / 2) * 255
     result_img = cv2.resize(result_img, (preprocessed_img.shape[1], preprocessed_img.shape[0]))
 
-    cv2.imwrite(output_url, result_img)
+    cv2.imwrite(output_path, result_img)
 
 
 ## 이것만 실행시키면 됩니다 ,, 
-main(input_url, output_url)
+main(input_path, output_path)
