@@ -117,8 +117,6 @@ def main(input_path, output_path):
 
         time_start = time.time()
         render_oup = sess.run(g_state, feed_dict={input_r: feed_img})
-        print('Feed shape: %d * %d, network dataflow time: %f'%
-            (feed_shape_x, feed_shape_y, time.time()-time_start))
             
     result_img = ((render_oup[0] + 1) / 2) * 255
     result_img = cv2.resize(result_img, (preprocessed_img.shape[1], preprocessed_img.shape[0]))
