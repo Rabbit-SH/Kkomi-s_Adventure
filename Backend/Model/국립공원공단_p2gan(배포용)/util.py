@@ -8,11 +8,19 @@ import torchvision.transforms as transforms
 import torch
 from PIL import Image
 
-# segmentation 코드 추가
+
 def segment_person(image_path):
     net = models.segmentation.fcn_resnet101(pretrained=True)
     net.eval()
     input_image = Image.open(image_path)
+    original_width, original_height = input_image.size
+
+    # 가로세로 비율에 따라 크기 조정 (왜곡 방지)
+    if original_width > original_height:
+        resize = transforms.Resize((1050, 1400))
+    else:
+        resize = transforms.Resize((1400, 1050))
+    input_image = resize(input_image)
     preprocess = transforms.Compose([
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])

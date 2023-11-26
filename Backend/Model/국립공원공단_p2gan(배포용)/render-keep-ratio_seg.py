@@ -135,5 +135,5 @@ with tf.device(DEVICE), tf.Session(config=tf.ConfigProto(gpu_options=gpu_options
 	final_ouput = (content + 1) * 127.5
 	final_ouput[human_mask == 0] = background_image[human_mask == 0]  # 사람이 아닌 부분에 배경 이미지를 합칩니다.
 	
-	cv2.imwrite(args.out_path + '/stylized.jpg', final_ouput)
+	cv2.imwrite(args.out_path + '/stylized2.jpg', final_ouput)
 
