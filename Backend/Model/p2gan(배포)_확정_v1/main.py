@@ -100,14 +100,14 @@ def main(input_path, output_path):
     # 모델 checkpoint 파일은 수정될 수 있습니다 .. 
     model_save = "model_save"
 
-    gpu_options = tf.GPUOptions(allow_growth=True)
+    gpu_options = tf.compat.v1.GPUOptions(allow_growth=True)
 
-    with tf.device(device), tf.Session(config=tf.ConfigProto(gpu_options=gpu_options)) as sess:
-        input_r = tf.placeholder(tf.float32, shape=[batch_size, feed_shape_y, feed_shape_x, 3], name='inpr')
+    with tf.device(device), tf.compat.v1.Session(config=tf.compat.v1.ConfigProto(gpu_options=gpu_options)) as sess:
+        input_r = tf.compat.v1.placeholder(tf.float32, shape=[batch_size, feed_shape_y, feed_shape_x, 3], name='inpr')
         g_state = model.build_generator(input_r, name='generator')
-        g_var_ls = tf.trainable_variables(scope='generator')
-        sess.run(tf.global_variables_initializer())
-        saver = tf.train.Saver(g_var_ls)
+        g_var_ls =  tf.compat.v1.trainable_variables(scope='generator')
+        sess.run(tf.compat.v1.global_variables_initializer())
+        saver = tf.compat.v1.train.Saver(g_var_ls)
         chkpt_fname = tf.train.latest_checkpoint(model_save)
 
         saver.restore(sess, chkpt_fname)
@@ -117,6 +117,8 @@ def main(input_path, output_path):
 
         time_start = time.time()
         render_oup = sess.run(g_state, feed_dict={input_r: feed_img})
+        print('Feed shape: %d * %d, network dataflow time: %f'%
+            (feed_shape_x, feed_shape_y, time.time()-time_start))
             
     result_img = ((render_oup[0] + 1) / 2) * 255
     result_img = cv2.resize(result_img, (preprocessed_img.shape[1], preprocessed_img.shape[0]))
