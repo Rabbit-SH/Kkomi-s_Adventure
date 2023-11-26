@@ -55,7 +55,7 @@ supported_patch_size = {
 
 batch_norm_decay=0.95
 batch_norm_epsilon=0.001
-batch_norm_updates_collections=tf.GraphKeys.UPDATE_OPS
+batch_norm_updates_collections = tf.compat.v1.GraphKeys.UPDATE_OPS
 
 def build_discriminator(inp, patch_size=9, is_training=True,
 	name='discriminator', reuse=False):
@@ -110,7 +110,7 @@ g_skip_conn_cfg = {
 
 def build_generator(inp, name='generator', reuse=False):
 	g_state = inp   # No prep
-	with tf.variable_scope(name, reuse=reuse):
+	with tf.compat.v1.variable_scope(name, reuse=reuse):
 		cfg = g_encoder_cfg
 		skip_conn = []
 		with slim.arg_scope([slim.conv2d, slim.separable_conv2d], activation_fn=tf.nn.relu,
@@ -138,7 +138,7 @@ def build_generator(inp, name='generator', reuse=False):
 		with slim.arg_scope([slim.conv2d, slim.separable_conv2d], activation_fn=None,
 					normalizer_fn=slim.instance_norm, padding='VALID'):
 			for index in range(cfg['l_num']):
-				g_state = tf.image.resize_images(g_state,
+				g_state = tf.image.resize(g_state,
 					(g_state.shape[1]*2, g_state.shape[2]*2), method=tf.image.ResizeMethod.NEAREST_NEIGHBOR)
 				g_state = _fixed_padding(g_state, [cfg['l%d_k'%index]])
 				g_state = slim.separable_conv2d(g_state, None,
