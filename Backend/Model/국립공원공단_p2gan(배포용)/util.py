@@ -3,7 +3,30 @@ import json
 import numpy as np
 import os
 import random
+import torchvision.models as models
+import torchvision.transforms as transforms
+import torch
+from PIL import Image
 
+# segmentation 코드 추가
+def segment_person(image_path):
+    net = models.segmentation.fcn_resnet101(pretrained=True)
+    net.eval()
+    input_image = Image.open(image_path)
+    preprocess = transforms.Compose([
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+    ])
+    input_tensor = preprocess(input_image)
+    input_batch = input_tensor.unsqueeze(0)
+    with torch.no_grad():
+        prediction = net(input_batch)['out']
+    output_predictions = prediction.squeeze().cpu().numpy()
+    predicted_class = np.argmax(output_predictions, axis=0)
+    human_mask = (predicted_class == 15).astype(np.uint8)
+    return human_mask
+
+#배치크기 읽어오기
 def imbatch_read(path, file_list, shape):
 	if len(file_list) <= 0:
 		return None
@@ -21,6 +44,7 @@ def imbatch_read(path, file_list, shape):
 			batch = np.vstack((batch, img))
 	return batch, sls
 
+# RGB 확인 후 0~255 조정
 def img_write(img, path, shape):
 	if len(img.shape) != 3 or img.shape[2] != 3:
 		return False # Only support RGB img
@@ -75,10 +99,12 @@ def patch_fill_multi(bg, imgls, offset_x, offset_y, gap, s):
 				random_crop(imgls[int(random.random() * len(imgls))], s, s),
 				i * jump + offset_x, j * jump + offset_y)
 
+# json 설정파일 읽어오는 코드
 def load_cfg(filename):
 	with open(filename, 'r') as fp:
 		return json.loads(fp.read())
 
+# 미니배치로 학습할떄 사용하는 리스트
 def pickup_list(ls, cnt, begin):
 	ls_len = len(ls)
 	if begin >= ls_len:
@@ -87,6 +113,7 @@ def pickup_list(ls, cnt, begin):
 		begin = ls_len - cnt
 	return ls[begin:begin+cnt]
 
+# 미니배치로 학습할떄 사용하는 리스트
 def make_input_batch(img, bs, h, w, ps):
 	(_, _, c) = img.shape
 	bat = np.zeros(bs * h * w * c).astype(np.float32).reshape((bs, h, w, c))
@@ -102,6 +129,7 @@ def make_input_batch_multi(imgls, bs, h, w, ps):
 		patch_fill_multi(bat[i], imgls, 0, 0, 0, ps)
 	return bat
 
+# json 형식으로 반환
 def ls_files_to_json(path, jname=None, reverse=False, ext=[]):
 	ls = []
 	for x in os.listdir(path):
@@ -157,6 +185,7 @@ def random_file_list(path, batch_size, rand=True):
 		random.shuffle(images_path)
 	return images_path[0:batch_size]
 
+# 이미지 형태의 파일들을 배치형태(여러개 사진을 하나로)로 불러오기 
 def images_batch(folder, file_list, shape, prep=True, singleCh=False, gray=False, remove_pad=False):
 	if len(file_list) <= 0:
 		return None
