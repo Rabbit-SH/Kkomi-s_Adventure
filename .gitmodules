@@ -1,0 +1,3 @@
+[submodule "Backend/Model/animegan2"]
+	path = Backend/Model/animegan2
+	url = https://github.com/bryandlee/animegan2-pytorch.git
