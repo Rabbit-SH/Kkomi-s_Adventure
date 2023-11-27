@@ -18,7 +18,7 @@ def load_image(image_path):
     # Convert the image to RGB format
     img = img.convert("RGB")
 
-    max_size = 1024
+    max_size = 1080
     width, height = img.size
     aspect_ratio = width / height
 
