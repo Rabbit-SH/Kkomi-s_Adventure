@@ -1,0 +1,7 @@
+numpy==1.18.1
+opencv-python==4.1.0.25
+tensorflow==1.15.4
+scikit-learn==1.0.2
+Pillow==9.5.0
+torchvision==0.14.1
+protobuf==3.20.1
