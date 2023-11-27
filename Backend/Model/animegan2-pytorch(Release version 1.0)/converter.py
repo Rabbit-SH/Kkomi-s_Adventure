@@ -22,6 +22,10 @@ def load_image(image_path):
     width, height = img.size
     aspect_ratio = width / height
 
+    # Check if the image size is smaller than the max_size
+    if width <= max_size and height <= max_size:
+        return img  # Return the original image without resizing
+
     # Resize the image while maintaining aspect ratio
     if width > height:
         new_height = max_size
@@ -31,11 +35,6 @@ def load_image(image_path):
         new_height = int(max_size / aspect_ratio)
 
     img = img.resize((new_width, new_height))
-
-    # Convert grayscale image to 3-channel grayscale if necessary
-    if img.mode == 'L':
-        img = img.convert("RGB")  # Convert the image to RGB format
-        img = img.convert("L")    # Convert it back to grayscale
 
     return img
 
