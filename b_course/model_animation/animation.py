@@ -17,7 +17,7 @@ torch.backends.cudnn.deterministic = True
 def load_image(image_path):
     img = Image.open(image_path).convert("RGB")
 
-    max_size = 1024
+    max_size = 1080
     width, height = img.size
     aspect_ratio = width / height
 
@@ -38,7 +38,7 @@ def animation(
     input_image,
     output_image,
     checkpoint="./a_course/model_animation/weights/face_paint_512_v2.pt",
-    device="cpu",
+    device=torch.device('cuda' if torch.cuda.is_available() else 'cpu'),
 ):
     # 모델 초기화
     net = Generator()
