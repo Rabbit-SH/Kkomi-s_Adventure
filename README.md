@@ -2,6 +2,9 @@
 
 One Paragraph of project description goes here
 
+![Animeganv2_man1](images/AnimeGANv2/man1_origin.jpg) !![Animeganv2_man1](images/AnimeGANv2/man1.jpg)
+
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
