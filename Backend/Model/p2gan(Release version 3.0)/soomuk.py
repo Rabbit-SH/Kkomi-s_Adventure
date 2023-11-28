@@ -3,6 +3,9 @@ import numpy as np
 import tensorflow as tf
 from sklearn.cluster import KMeans
 from PIL import Image
+import torchvision.models as models
+import torchvision.transforms as transforms
+import torch
 
 slim = tf.contrib.slim
 
@@ -159,9 +162,32 @@ def build_generator(inp, name="generator", reuse=tf.compat.v1.AUTO_REUSE):
         )
     return g_state
 
+# segmentation 코드 추가
+def segment_person(image_path):
+    net = models.segmentation.fcn_resnet101(pretrained=True)
+    net.eval()
+    input_image = Image.open(image_path)
+    input_image = input_image.resize((1024, 1024))
+    preprocess = transforms.Compose([
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+    ])
+    input_tensor = preprocess(input_image)
+    input_batch = input_tensor.unsqueeze(0)
+    with torch.no_grad():
+        prediction = net(input_batch)['out']
+    output_predictions = prediction.squeeze().cpu().numpy()
+    predicted_class = np.argmax(output_predictions, axis=0)
+    human_mask = (predicted_class == 15).astype(np.uint8)
+    return human_mask
 
-def segment_image(image, k=5):
 
+def open_img(img_path):
+	img = cv2.imread(img_path)
+	img = (img / 255.0 - 0.5) * 2.0
+	return img
+
+def segment_image(image, k=3):
     # 이미지를 NumPy 배열로 변환
     data = np.array(image)
 
@@ -174,14 +200,15 @@ def segment_image(image, k=5):
     labels = kmeans.predict(data)
 
     # 클러스터링 결과에 따라 색상 재할당
-    segmented_data = kmeans.cluster_centers_.astype('uint8')[labels]
+    segmented_data = kmeans.cluster_centers_.astype("uint8")[labels]
 
     # 2D 데이터를 원래 이미지 크기로 다시 변환
     segmented_image = segmented_data.reshape((w, h, d))
 
     return Image.fromarray(segmented_image)
 
-def adjust_brightness_dynamic(image, dark_factor=1.5, bright_factor=1.3):
+
+def adjust_brightness_dynamic(image, dark_factor=1.5, bright_factor=1):
     if image.dtype != np.float32:
         image = image.astype(np.float32)
 
@@ -203,10 +230,9 @@ def load_and_preprocess(image_path):
     # 이미지 크기 확인
     height, width = image.shape[:2]
 
-    # 이미지 크기 조정
-    scale_factor = min(1024.0 / width, 1024.0 / height)
-    new_width = int(width * scale_factor)
-    new_height = int(height * scale_factor)
+    # 이미지 크기를 10241024x1024로 조정
+    new_width = 1024
+    new_height = 1024
     resized_image = cv2.resize(image, (new_width, new_height))
 
     # color segmentation
@@ -237,6 +263,8 @@ def soomuk(input_path, output_path):
 
     preprocessed_img = load_and_preprocess(input_path)
 
+    # preprocessed_img = cv2.imread(input_path)
+
     device = "cpu"
     batch_size = 1
     feed_size = 1024
@@ -253,12 +281,13 @@ def soomuk(input_path, output_path):
         cv2.resize(preprocessed_img, (feed_shape_x, feed_shape_y)), axis=0
     )
 
+    # 수정 부탁 
     model_save = "model_save"
-    tf.compat.v1.reset_default_graph () 
+    tf.reset_default_graph() 
 
     gpu_options = tf.compat.v1.GPUOptions(allow_growth=True)
 
-    with tf.device(device), tf.compat.v1.Session( 
+    with tf.device(device), tf.compat.v1.Session( # 수정 부분 
         config=tf.compat.v1.ConfigProto(gpu_options=gpu_options)
     ) as sess:
         input_r = tf.compat.v1.placeholder(
@@ -286,6 +315,82 @@ def soomuk(input_path, output_path):
 
     cv2.imwrite(output_path, result_img)
 
-## 이것만 실행시키면 됩니다.
-soomuk(input_path, output_path)
 
+## 이미지 스타일 변환
+def seg_soomuk(input_path, output_path):
+    
+    content = open_img(input_path)
+
+    content = cv2.resize(content, (1024, 1024))
+
+
+    human_mask = segment_person(input_path)
+    preprocessed_img = load_and_preprocess(input_path)
+
+    # preprocessed_img = cv2.imread(input_path)
+
+    device = "cpu"
+    batch_size = 1
+    feed_size = 1024
+
+    resize_rate = max(preprocessed_img.shape[0], preprocessed_img.shape[1]) / feed_size
+    feed_shape_x, feed_shape_y = preprocessed_img.shape[1], preprocessed_img.shape[0]
+
+    feed_shape_y = feed_shape_y / resize_rate
+    feed_shape_x = feed_shape_x / resize_rate
+    feed_shape_y = int((feed_shape_y // 8) * 8)
+    feed_shape_x = int((feed_shape_x // 8) * 8)
+
+    feed_img = np.expand_dims(
+        cv2.resize(preprocessed_img, (feed_shape_x, feed_shape_y)), axis=0
+    )
+
+    # 수정 부탁 
+    model_save = "model_save"
+    tf.reset_default_graph() 
+
+    gpu_options = tf.compat.v1.GPUOptions(allow_growth=True)
+
+    with tf.device(device), tf.compat.v1.Session( # 수정 부분 
+        config=tf.compat.v1.ConfigProto(gpu_options=gpu_options)
+    ) as sess:
+        input_r = tf.compat.v1.placeholder(
+            tf.float32, shape=[batch_size, feed_shape_y, feed_shape_x, 3], name="inpr"
+        )
+        g_state = build_generator(input_r, name="generator")
+        g_var_ls =  tf.compat.v1.trainable_variables(scope="generator")
+        sess.run(tf.compat.v1.global_variables_initializer())
+        saver = tf.compat.v1.train.Saver(g_var_ls)
+        chkpt_fname = tf.train.latest_checkpoint(model_save)
+
+        saver.restore(sess, chkpt_fname)
+
+        noise = np.random.normal(
+            0, 1, size=(batch_size, feed_shape_y, feed_shape_x, 3)
+        ).astype(np.float32)
+        sess.run(g_state, feed_dict={input_r: noise})
+
+        render_oup = sess.run(g_state, feed_dict={input_r: feed_img})
+
+    result_img = ((render_oup[0] + 1) / 2) * 255
+    result_img = cv2.resize(
+        result_img, (preprocessed_img.shape[1], preprocessed_img.shape[0])
+    )
+
+    # 원본사진(content) 는 -1 ~ 1 정규화 값을 가짐
+    background_image = content.copy() 
+	# 배경 영역에 스타일 적용된 이미지를 만듭니다.  이 과정에서 background_image 픽셀값이 output 픽셀 범위에 의해 정규화 해제
+    background_image[human_mask == 0] = result_img[human_mask == 0]  
+	# 최종 결과물에서 원본 사진을 보려면 정규화 해제 필요
+    final_ouput = (content + 1) * 127.5
+    final_ouput[human_mask == 0] = background_image[human_mask == 0]  # 사람이 아닌 부분에 배경 이미지를 합칩니다.
+
+
+
+    cv2.imwrite(output_path, final_ouput)
+
+
+## 이것만 실행시키면 됩니다 ,,
+# soomuk("33.jpg", "result33.jpg")
+
+seg_soomuk("22.jpg", "result3.jpg")
