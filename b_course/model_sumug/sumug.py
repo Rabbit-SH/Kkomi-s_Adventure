@@ -279,9 +279,9 @@ def sumug(input_path, output_path):
         cv2.resize(preprocessed_img, (feed_shape_x, feed_shape_y)), axis=0
     )
 
-    # 모델 불러오기
-    model_save = "model_save"
-    tf.reset_default_graph() 
+    # 모델 불러오기 main.py기준 경로로 설정해야함.
+    model_save = "./b_course/model_sumug/model_save"
+    tf.compat.v1.reset_default_graph() 
 
     gpu_options = tf.compat.v1.GPUOptions(allow_growth=True)
 
@@ -344,8 +344,8 @@ def seg_sumug(input_path, output_path):
     )
 
     # 모델 불러오기 
-    model_save = "model_save"
-    tf.reset_default_graph() 
+    model_save = "./b_course/model_sumug/model_save"
+    tf.compat.v1.reset_default_graph() 
 
     gpu_options = tf.compat.v1.GPUOptions(allow_growth=True)
 
@@ -383,10 +383,9 @@ def seg_sumug(input_path, output_path):
     final_ouput = (content + 1) * 127.5
     final_ouput[human_mask == 0] = background_image[human_mask == 0]  # 사람이 아닌 부분에 배경 이미지를 합칩니다.
 
-
-
+    print(output_path)
     cv2.imwrite(output_path, final_ouput)
 
 ## test
 # sumug("33.jpg", "result33.jpg")
-# seg_sumug("22.jpg", "result3.jpg")
+# seg_sumug("33.jpg", "result3.jpg")

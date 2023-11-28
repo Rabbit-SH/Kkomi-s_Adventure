@@ -4,9 +4,23 @@ from fastapi.staticfiles import StaticFiles
 import shutil
 import os
 from fastapi.middleware.cors import CORSMiddleware
+import os
+from fastapi import BackgroundTasks, FastAPI, File, UploadFile
+from fastapi.responses import FileResponse
+from fastapi.middleware.cors import CORSMiddleware
+import shutil
+from b_course.model_cartoon.cartoon import cartoonize
+from b_course.model_sumug.sumug import sumug,seg_sumug
+from b_course.model_animation.animation import animation
+import os
+
+# AVX2오류 무시
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
 
 app = FastAPI()
 
+#CORS문제 해결
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # 프론트엔드 서버 주소
@@ -14,7 +28,7 @@ app.add_middleware(
     allow_methods=["*"],  # 모든 HTTP 메소드 허용
     allow_headers=["*"],  # 모든 헤더 허용
 )
-
+# 정적파일 마운트
 app.mount(
     "/watertoad",
     StaticFiles(
@@ -24,21 +38,10 @@ app.mount(
     name="watertoad",
 )
 
-@app.get("/watertoad")
-async def waterfrog():
+#시작페이지 제공
+@app.get("/")
+async def gotowatertoad():
     return FileResponse("./b_course/dist/index.html")
-
-###### B팀 코드 API
-
-from fastapi.staticfiles import StaticFiles
-import os
-from fastapi import BackgroundTasks, FastAPI, File, UploadFile
-from fastapi.responses import FileResponse
-from fastapi.middleware.cors import CORSMiddleware
-import shutil
-from b_course.model_cartoon.cartoon import cartoonize
-from b_course.model_sumug.sumug import sumug,seg_sumug
-from b_course.model_animation.animation import animation
 
 # 파일 삭제 함수
 def remove_file(path: str):
@@ -56,7 +59,7 @@ async def aipainter(background_tasks: BackgroundTasks, file: UploadFile = File(.
         with open(input_image_path, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
         # 변환 이미지 파일명, 경로 설정.
-        convert_image_path = f"./b_course/input/watertoad_{convertoption}_converted_{file.filename}"
+        convert_image_path = f"./b_course/output/watertoad_{convertoption}_converted_{file.filename}"
         
         # Aipainting 옵션
         if (convertoption==1):

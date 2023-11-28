@@ -37,7 +37,7 @@ def load_image(image_path):
 def animation(
     input_image,
     output_image,
-    checkpoint="./a_course/model_animation/weights/face_paint_512_v2.pt",
+    checkpoint="./b_course/model_animation/weights/face_paint_512_v2.pt",
     device=torch.device('cuda' if torch.cuda.is_available() else 'cpu'),
 ):
     # 모델 초기화
