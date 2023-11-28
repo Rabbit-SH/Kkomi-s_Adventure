@@ -2,7 +2,7 @@
 
 One Paragraph of project description goes here
 
-![Animeganv2_man1](images/AnimeGANv2/man1_origin.jpg) !![Animeganv2_man1](images/AnimeGANv2/man1.jpg)
+| ![Animeganv2_man1](images/AnimeGANv2/man1_origin.jpg) | !![Animeganv2_man1](images/AnimeGANv2/man1.jpg) |
 
 
 ## Getting Started
