@@ -4,9 +4,9 @@ One Paragraph of project description goes here
 
 | ![Animeganv2_man1](images/AnimeGANv2/man1_origin.jpg) | !![Animeganv2_man1](images/AnimeGANv2/man1.jpg) |
 
-<div style="display: flex; justify-content: center;">
-  <img src="images/AnimeGANv2/man1_origin.jpg" alt="Animeganv2_man1" style="width: 80%;">
-  <img src="images/AnimeGANv2/man1.jpg" alt="Animeganv2_man1" style="width: 80%;">
+<div style="display: flex;">
+    <img src="images/AnimeGANv2/man1_origin.jpg" alt="Animeganv2_man1" width="512" height="512" />
+    <img src="images/AnimeGANv2/man1.jpg" alt="Animeganv2_man1" width="512" height="512" />
 </div>
 
 ## Getting Started
