@@ -19,10 +19,10 @@ One Paragraph of project description goes here
 ## Getting Started
 
 - Clone this repo:
-  ```
-    git clone https://github.com/Rabbit-SH/Kkomi-s_Adventure.git
-    cd Kkomi-s_Adventure
-  ```
+```
+git clone https://github.com/Rabbit-SH/Kkomi-s_Adventure.git
+cd Kkomi-s_Adventure
+```
 ### Install requirements
 
     pip install -r requirements.txt
