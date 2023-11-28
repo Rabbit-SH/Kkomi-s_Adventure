@@ -78,7 +78,7 @@ See also the list of [contributors](https://github.com/your/project/contributors
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgments
-
+* Code borrows from [AnimeGANv2-pytorch](https://github.com/bryandlee/animegan2-pytorch) and [White-box-Cartoonization](https://github.com/SystemErrorWang/White-box-Cartoonization) and [p2gan](https://github.com/i-evi/p2gan). 
 * Hat tip to anyone whose code was used
 * Inspiration
 * etc
