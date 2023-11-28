@@ -142,7 +142,6 @@ def build_generator(inp, name="generator", reuse=tf.compat.v1.AUTO_REUSE):
                     stride=1,
                     scope="dec_%d_pw" % index,
                 )
-                # sc = slim.conv2d(skip_conn[?], 128, [1, 1], stride=1, scope='sc')
                 if index < g_skip_conn_cfg["l_num"]:
                     g_state = tf.nn.relu(
                         g_state + skip_conn[g_skip_conn_cfg["l_num"] - index - 1]
@@ -261,9 +260,8 @@ def load_and_preprocess(image_path):
 ## 이미지 스타일 변환
 def sumug(input_path, output_path):
 
+    #이미지 전처리
     preprocessed_img = load_and_preprocess(input_path)
-
-    # preprocessed_img = cv2.imread(input_path)
 
     device = "cpu"
     batch_size = 1
@@ -281,7 +279,7 @@ def sumug(input_path, output_path):
         cv2.resize(preprocessed_img, (feed_shape_x, feed_shape_y)), axis=0
     )
 
-    # 수정 부탁 
+    # 모델 불러오기
     model_save = "model_save"
     tf.reset_default_graph() 
 
@@ -316,7 +314,7 @@ def sumug(input_path, output_path):
     cv2.imwrite(output_path, result_img)
 
 
-## 이미지 스타일 변환
+## 이미지 스타일 변환 + 인물 세그멘테이션
 def seg_sumug(input_path, output_path):
     
     content = open_img(input_path)
@@ -327,8 +325,8 @@ def seg_sumug(input_path, output_path):
     human_mask = segment_person(input_path)
     preprocessed_img = load_and_preprocess(input_path)
 
-    # preprocessed_img = cv2.imread(input_path)
-
+    
+    #CPU사용
     device = "cpu"
     batch_size = 1
     feed_size = 1024
@@ -345,7 +343,7 @@ def seg_sumug(input_path, output_path):
         cv2.resize(preprocessed_img, (feed_shape_x, feed_shape_y)), axis=0
     )
 
-    # 수정 부탁 
+    # 모델 불러오기 
     model_save = "model_save"
     tf.reset_default_graph() 
 
@@ -388,3 +386,7 @@ def seg_sumug(input_path, output_path):
 
 
     cv2.imwrite(output_path, final_ouput)
+
+## test
+# sumug("33.jpg", "result33.jpg")
+# seg_sumug("22.jpg", "result3.jpg")
