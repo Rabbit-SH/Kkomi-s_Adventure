@@ -1,4 +1,4 @@
-# Kkomi-s_Adventure
+# Kkomi's_Adventure
 
 One Paragraph of project description goes here
 
