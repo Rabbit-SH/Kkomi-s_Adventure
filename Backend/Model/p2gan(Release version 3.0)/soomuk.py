@@ -393,4 +393,5 @@ def seg_soomuk(input_path, output_path):
 ## 이것만 실행시키면 됩니다 ,,
 # soomuk("33.jpg", "result33.jpg")
 
+
 seg_soomuk("22.jpg", "result3.jpg")
