@@ -10,18 +10,18 @@ One Paragraph of project description goes here
     <img src="images/AnimeGANv2/man2.jpg" alt="Animeganv2_man2"width="180" height="180" />
 </div>
 
+### Prerequisites
+
+- Windows
+- Python 3
+- CPU or NVIDIA GPU + CUDA CuDNN
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+- Clone this repo:
 
-### Prerequisites
-
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
+    git clone https://github.com/Rabbit-SH/Kkomi-s_Adventure.git
+    cd Kkomi-s_Adventure
 
 ### Install requirements
 
@@ -29,35 +29,24 @@ Give examples
 
 End with an example of getting some data out of the system or using it for a little demo
 
-## Running the tests
+## Running the program
 
-Explain how to run the automated tests for this system
 
-### Break down into end to end tests
+    python main.py 
 
-Explain what these tests test and why
-
-```
-python main.py 
-```
 
 ### And coding style tests
 
 Explain what these tests test and why
 
-```
-Give an example
-```
+
+    Give an example
+
 
 ## Deployment
 
 Add additional notes about how to deploy this on a live system
 
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
 
 ## Contributing
 
