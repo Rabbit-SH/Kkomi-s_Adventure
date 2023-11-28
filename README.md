@@ -4,8 +4,8 @@ One Paragraph of project description goes here
 
 
 <div style="display: flex; justify-content: center;">
-    <img src="images/AnimeGANv2/man1_origin.jpg" alt="Animeganv2_man1" width="200" height="200" />
-    <img src="images/AnimeGANv2/man1.jpg" alt="Animeganv2_man1"width="200" height="200" />
+    <img src="images/AnimeGANv2/woman2_origin.jpg" alt="Animeganv2_woman2" width="200" height="200" />
+    <img src="images/AnimeGANv2/woman2.jpg" alt="Animeganv2_woman2"width="200" height="200" />
     <img src="images/AnimeGANv2/man2_origin.jpg" alt="Animeganv2_man2" width="200" height="200" />
     <img src="images/AnimeGANv2/man2.jpg" alt="Animeganv2_man2"width="200" height="200" />
 </div>
