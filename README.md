@@ -3,7 +3,7 @@
 One Paragraph of project description goes here
 
 
-<div style="display: flex;">
+<div style="display: flex; justify-content: center;">
     <img src="images/AnimeGANv2/man1_origin.jpg" alt="Animeganv2_man1" width="240" height="240" />
     <img src="images/AnimeGANv2/man1.jpg" alt="Animeganv2_man1" width="240" height="240" />
     <img src="images/AnimeGANv2/man2_origin.jpg" alt="Animeganv2_man2" width="240" height="240" />
