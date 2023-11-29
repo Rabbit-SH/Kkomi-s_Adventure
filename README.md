@@ -40,17 +40,17 @@ One Paragraph of project description goes here
 git clone https://github.com/Rabbit-SH/Kkomi-s_Adventure.git
 cd Kkomi-s_Adventure
 ```
-### Install requirements
+## Install requirements
     
     pip install -r requirements.txt
 
-### Running the Local Server
+## Running the Local Server
 
     uvicorn main:app --reload
     
 Then you can test in 127.0.0.1:8000 (localhost)
 
-### How to Use the Back-End
+## How to Use the Back-End
 
 The frontend receives requests through axios and provides API according to get or post requests.
 
@@ -61,6 +61,18 @@ For example in Vue.js request
 In FastApi
 
 Then the function defined under "@app.post("/aipainter")" is executed and the response is sent back to the frontend.
+
+## Citations
+
+If you use the VOC2007 dataset in your research, please cite the following reference:
+
+```
+@misc{pascal-voc-2007,
+    author = "Everingham, M. and Van Gool, L. and Williams, CKI and Winn, J. and Zisserman, A.",
+    title = "{PASCAL} {V}isual {O}bject {C}lasses {C}hallenge 2007 {(VOC2007)} {R}esults",
+    howpublished = "http://www.pascal-network.org/challenges/VOC/voc2007/workshop/index.html"}
+```
+
     
 ## License
 
@@ -79,13 +91,4 @@ If you have any questions, please contact us
 [Jinujara] : herjinwo@gmail.com | 
 [minjeongKim21] : alswjd4823@naver.com
 
-## Citations
 
-If you use the VOC2007 dataset in your research, please cite the following reference:
-
-```
-@misc{pascal-voc-2007,
-    author = "Everingham, M. and Van Gool, L. and Williams, CKI and Winn, J. and Zisserman, A.",
-    title = "{PASCAL} {V}isual {O}bject {C}lasses {C}hallenge 2007 {(VOC2007)} {R}esults",
-    howpublished = "http://www.pascal-network.org/challenges/VOC/voc2007/workshop/index.html"}
-```
