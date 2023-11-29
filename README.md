@@ -1,4 +1,4 @@
-# Kkomi's_Adventure
+# Kkomi's_Adventure(Watertoad_Course)
 
 This code for the watertoad course of the Chiak Mountain Exploration program of the Korea National Park Service.
 
