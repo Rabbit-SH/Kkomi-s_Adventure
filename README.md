@@ -4,16 +4,14 @@ This code for the watertoad course of the Chiak Mountain Exploration program of 
 
 ## Main Function 
 
-<details>
-    <summary>
-        Service Concept
-    </summary>
-    Promoting awareness of the beauty and preservation value of national parks <br>
-    - Role of National Park Tour Guide: The main purpose is to closely observe the nature and life of the national park and experience the wonders of nature <br>
-    - Highly Autonomous Exploration Service: Highly Autonomous Exploration Service that can be used without tour commentators <br>
-    - Family with children: Targeting families with young children, visiting the center of an experience center, campsite, or the beginning of a national park trail <br>
-    - Minimize media elements: Minimize media elements to help you immerse yourself in walking and observing nature / Media that can be visually interesting is a secondary factor <br>
-</details>
+### Service Concept
+
+  - Promoting awareness of the beauty and preservation value of national parks 
+     * Role of National Park Tour Guide: The main purpose is to closely observe the nature and life of the national park and experience the wonders of nature 
+     * Highly Autonomous Exploration Service: Highly Autonomous Exploration Service that can be used without tour commentators 
+     * Family with children: Targeting families with young children, visiting the center of an experience center, campsite, or the beginning of a national park trail 
+     * Minimize media elements: Minimize media elements to help you immerse yourself in walking and observing nature / Media that can be visually interesting is a secondary factor 
+
 
 ## P2GAN
 <div style="display: flex; justify-content: center;">
