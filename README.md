@@ -44,6 +44,11 @@ cd Kkomi-s_Adventure
 
     pip install -r requirements.txt
 
+### Running the program
+
+    python main.py
+    
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
