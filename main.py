@@ -2,13 +2,7 @@ from fastapi import FastAPI,UploadFile, File, BackgroundTasks,Form
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 import shutil
-import os
 from fastapi.middleware.cors import CORSMiddleware
-import os
-from fastapi import BackgroundTasks, FastAPI, File, UploadFile
-from fastapi.responses import FileResponse
-from fastapi.middleware.cors import CORSMiddleware
-import shutil
 from b_course.model_cartoon.cartoon import cartoonize
 from b_course.model_sumug.sumug import sumug,seg_sumug
 from b_course.model_animation.animation import animation
