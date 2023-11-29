@@ -1,5 +1,5 @@
 # Kkomi's_Adventure(Watertoad_Course)
-
+![Service image](images/Service image/Service_image.jpg)
 This code for the watertoad course of the Chiak Mountain Exploration program of the Korea National Park Service.
 
 ## P2GAN
@@ -94,6 +94,6 @@ If you have any questions, please contact us
 [Hyewoong] : n417759@gmail.com | 
 [cocoball] : wlrn0514@gmail.com |
 [Jinujara] : herjinwo@gmail.com | 
-[minjeongKim21] : alswjd4823@naver.com
+[minjeongKim21] : minddong21@gmail.com
 
 
