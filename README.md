@@ -63,10 +63,10 @@ In FastApi
 
 Then the function defined under "@app.post("/aipainter")" is executed and the response is sent back to the frontend.
 
-## Citations
 
-If you use the VOC2007 dataset in your research, please cite the following reference:
+## Datasets
 
+P2GAN
 ```
 @misc{pascal-voc-2007,
     author = "Everingham, M. and Van Gool, L. and Williams, CKI and Winn, J. and Zisserman, A.",
@@ -74,7 +74,11 @@ If you use the VOC2007 dataset in your research, please cite the following refer
     howpublished = "http://www.pascal-network.org/challenges/VOC/voc2007/workshop/index.html"}
 ```
 
-    
+## Citations
+
+Sound source and design sources : [wholesee](wholesee.com)
+
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
