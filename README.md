@@ -101,7 +101,7 @@ P2GAN
 
 ## Source
 
-Sound & Design source : [에코샵홀씨(주)/김현태](https://wholesee.com/)
+Sound source : [에코샵홀씨(주)/김현태](https://wholesee.com/)
 
 
 ## License
