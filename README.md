@@ -50,13 +50,14 @@ cd Kkomi-s_Adventure
 Then you can test in 127.0.0.1:8000 (localhost)
 
 ### How to Use the Back-End
-    The frontend receives requests through axios and provides API according to get or post requests.
-    For example in Vue.js
-    request
-    "await axios.post('http://localhost:8000/aipainter', formData,{responseType: 'blob'});" =>
-    
-    in FastApi
-    Then the function defined under "@app.post("/aipainter")" is executed and the response is sent back to the frontend.
+
+The frontend receives requests through axios and provides API according to get or post requests.
+For example in Vue.js
+request
+"await axios.post('http://localhost:8000/aipainter', formData,{responseType: 'blob'});" =>
+
+in FastApi
+Then the function defined under "@app.post("/aipainter")" is executed and the response is sent back to the frontend.
     
 ## License
 
