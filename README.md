@@ -76,7 +76,7 @@ P2GAN
 
 ## Citations
 
-Sound source and design sources : [wholesee](wholesee.com)
+Sound source : [wholesee](wholesee.com)
 
 
 ## License
