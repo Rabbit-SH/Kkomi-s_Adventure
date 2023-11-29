@@ -80,7 +80,7 @@ Then you can test in 127.0.0.1:8000 (localhost)
 
 #### Lints and fixes files
 
-  npm run lint
+    npm run lint
 
 #### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
