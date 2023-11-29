@@ -29,7 +29,12 @@ def resize_crop(image):
 # 카툰화를 수행하는 함수
 def cartoonize(input_path, output_path):
     model_path = "./b_course/model_cartoon/saved_models"  # 모델 경로
-
+    # model_path = "saved_models"
+    try:
+        tf.disable_eager_execution()  # TensorFlow 2.x의 경우, 즉시 실행을 비활성화
+    except:
+        None
+        
     tf.reset_default_graph()  # 그래프 초기화
 
     input_photo = tf.placeholder(tf.float32, [1, None, None, 3])  # 입력 이미지 플레이스홀더
@@ -42,6 +47,7 @@ def cartoonize(input_path, output_path):
 
     config = tf.ConfigProto()
     config.gpu_options.allow_growth = True  # GPU 메모리 할당을 동적으로 설정
+    
     with tf.Session(config=config) as sess:  # 세션 생성
         sess.run(tf.global_variables_initializer())  # 변수 초기화
         saver.restore(sess, tf.train.latest_checkpoint(model_path))  # 체크포인트에서 변수 복원
@@ -56,6 +62,9 @@ def cartoonize(input_path, output_path):
             )  # 네트워크 실행
             output = (np.squeeze(output) + 1) * 127.5  # 출력 이미지 후처리
             output = np.clip(output, 0, 255).astype(np.uint8)  # 값 범위를 0-255로 조정
+            
             cv2.imwrite(output_path, output)  # 이미지 저장
         except Exception as e:
             print("cartoonize {} failed: {}".format(input_path, e))  # 오류 발생시 출력
+
+# cartoonize("sample.jpg","result.jpg")

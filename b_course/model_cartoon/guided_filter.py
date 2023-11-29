@@ -85,4 +85,4 @@ if __name__ == '__main__':
     out = sess.run(output, feed_dict={input_photo: image})
     out = (np.squeeze(out)+1)*127.5
     out = np.clip(out, 0, 255).astype(np.uint8)
-    cv2.imwrite('output_figure1/cartoon2_filter.jpg', out)
+    cv2.imwrite('./cartoon2_filter.jpg', out)
