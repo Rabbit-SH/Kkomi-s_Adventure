@@ -84,9 +84,8 @@ If you have any questions, please contact us
 If you use the VOC2007 dataset in your research, please cite the following reference:
 
 ```
-@article{pascal-voc-2007,
+@misc{pascal-voc-2007,
     author = "Everingham, M. and Van Gool, L. and Williams, CKI and Winn, J. and Zisserman, A.",
-    title = "{The PASCAL Visual Object Classes Challenge 2007 (VOC2007) Results}",
-    howpublished = "http://www.pascal-network.org/challenges/VOC/voc2007/workshop/index.html"
-}
+    title = "{PASCAL} {V}isual {O}bject {C}lasses {C}hallenge 2007 {(VOC2007)} {R}esults",
+    howpublished = "http://www.pascal-network.org/challenges/VOC/voc2007/workshop/index.html"}
 ```
