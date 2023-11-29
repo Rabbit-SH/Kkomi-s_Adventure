@@ -10,7 +10,7 @@ import os
 
 # AVX2오류 무시
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-
+   
 
 app = FastAPI()
 
