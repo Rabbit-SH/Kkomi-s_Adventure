@@ -54,9 +54,10 @@ Then you can test in 127.0.0.1:8000 (localhost)
 
 The frontend receives requests through axios and provides API according to get or post requests.
 
+
 For example in Vue.js request
 
-"await axios.post('http://localhost:8000/aipainter', formData,{responseType: 'blob'});" =>
+    "await axios.post('http://localhost:8000/aipainter', formData,{responseType: 'blob'});" =>
 
 In FastApi
 
