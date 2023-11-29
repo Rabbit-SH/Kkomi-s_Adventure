@@ -78,3 +78,13 @@ If you have any questions, please contact us
 [cocoball] : wlrn0514@gmail.com |
 [Jinujara] : herjinwo@gmail.com | 
 [minjeongKim21] : alswjd4823@naver.com
+
+## Citations
+
+If you use the VOC2007 dataset in your research, please cite the following reference:
+
+@article{pascal-voc-2007,
+    author = "Everingham, M. and Van Gool, L. and Williams, CKI and Winn, J. and Zisserman, A.",
+    title = "{The PASCAL Visual Object Classes Challenge 2007 (VOC2007) Results}",
+    howpublished = "http://www.pascal-network.org/challenges/VOC/voc2007/workshop/index.html"
+}
