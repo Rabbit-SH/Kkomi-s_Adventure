@@ -84,7 +84,7 @@ Sound source : [wholesee](wholesee.com)
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Related Projects
-[AnimeGANv2-pytorch](https://github.com/bryandlee/animegan2-pytorch) | [White-box-Cartoonization](https://github.com/SystemErrorWang/White-box-Cartoonization) | [p2gan](https://github.com/i-evi/p2gan). 
+[AnimeGANv2-pytorch](https://github.com/bryandlee/animegan2-pytorch) | [White-box-Cartoonization](https://github.com/SystemErrorWang/White-box-Cartoonization) | [p2gan](https://github.com/i-evi/p2gan). | [Leaflet](https://github.com/Leaflet/Leaflet) | [Vue](https://github.com/vuejs) | [Vuetify](https://github.com/vuetifyjs/vuetify) | [Vuex](https://github.com/vuejs/vuex) | [Openstreetmap](opendatacommons.org)
 
 ## Etc
 
