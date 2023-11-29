@@ -1,6 +1,6 @@
 # Kkomi's_Adventure
 
-One Paragraph of project description goes here
+This code for the watertoad course of the Chiak Mountain Exploration program of the Korea National Park Service.
 
 ## P2GAN
 <div style="display: flex; justify-content: center;">
