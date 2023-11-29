@@ -30,7 +30,7 @@ One Paragraph of project description goes here
 ### Prerequisites
 
 - Windows
-- Python 3
+- Python 3.7.*
 - CPU or NVIDIA GPU + CUDA CuDNN
 
 ## Getting Started
@@ -41,50 +41,40 @@ git clone https://github.com/Rabbit-SH/Kkomi-s_Adventure.git
 cd Kkomi-s_Adventure
 ```
 ### Install requirements
-
+    
     pip install -r requirements.txt
 
-End with an example of getting some data out of the system or using it for a little demo
+### Running the Local Server
 
-## Running the program
+    uvicorn main:app --reload
+    
+Then you can test in 127.0.0.1:8000 (localhost)
 
+### How to Use the Back-End
 
-    python main.py 
+The frontend receives requests through axios and provides API according to get or post requests.
 
+For example in Vue.js request
 
-### And coding style tests
+"await axios.post('http://localhost:8000/aipainter', formData,{responseType: 'blob'});" =>
 
-Explain what these tests test and why
+In FastApi
 
-
-    Give an example
-
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
+Then the function defined under "@app.post("/aipainter")" is executed and the response is sent back to the frontend.
+    
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
-## Acknowledgments
-* Code borrows from [AnimeGANv2-pytorch](https://github.com/bryandlee/animegan2-pytorch) and [White-box-Cartoonization](https://github.com/SystemErrorWang/White-box-Cartoonization) and [p2gan](https://github.com/i-evi/p2gan). 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+## Related Projects
+[AnimeGANv2-pytorch](https://github.com/bryandlee/animegan2-pytorch) | [White-box-Cartoonization](https://github.com/SystemErrorWang/White-box-Cartoonization) | [p2gan](https://github.com/i-evi/p2gan). 
+
+## Etc
+
+If you have any questions, please contact us
+
+[Rabbit-SH] : 0324suhyun@gmail.com |
+[Hyewoong] : n417759@gmail.com | 
+[cocoball] : wlrn0514@gmail.com |
+[Jinujara] : herjinwo@gmail.com | 
+[minjeongKim21] : alswjd4823@naver.com
