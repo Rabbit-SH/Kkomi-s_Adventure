@@ -54,4 +54,9 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## Etc
 
 If you have any questions, please contact us
-[Rabbit-SH] : 0324suhyun@gmail.com | [Hyewoong] : n417759@gmail.com | [cocoball] : wlrn0514@gmail.com | [Jinujara] : herjinwo@gmail.com | [minjeongKim21] : alswjd4823@naver.com
+
+[Rabbit-SH] : 0324suhyun@gmail.com |
+[Hyewoong] : n417759@gmail.com | 
+[cocoball] : wlrn0514@gmail.com |
+[Jinujara] : herjinwo@gmail.com | 
+[minjeongKim21] : alswjd4823@naver.com
