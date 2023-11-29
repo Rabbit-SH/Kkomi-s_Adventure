@@ -94,6 +94,6 @@ If you have any questions, please contact us
 [Hyewoong] : n417759@gmail.com | 
 [cocoball] : wlrn0514@gmail.com |
 [Jinujara] : herjinwo@gmail.com | 
-[minjeongKim21] : alswjd4823@naver.com
+[minjeongKim21] : minddong21@gmail.com
 
 
