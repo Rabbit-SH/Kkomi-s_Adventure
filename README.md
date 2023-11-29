@@ -30,7 +30,7 @@ One Paragraph of project description goes here
 ### Prerequisites
 
 - Windows
-- Python 3
+- Python 3.7.*
 - CPU or NVIDIA GPU + CUDA CuDNN
 
 ## Getting Started
@@ -41,14 +41,23 @@ git clone https://github.com/Rabbit-SH/Kkomi-s_Adventure.git
 cd Kkomi-s_Adventure
 ```
 ### Install requirements
-
+    
     pip install -r requirements.txt
 
-### Running the program
+### Running the Local Server
 
-    python main.py
+    uvicorn main:app --reload
+Then you can test in 127.0.0.1:8000 (localhost)
+
+### How to Use the Back-End
+    The frontend receives requests through axios and provides API according to get or post requests.
+    For example in Vue.js
+    request
+    "await axios.post('http://localhost:8000/aipainter', formData,{responseType: 'blob'});" =>
     
-
+    in FastApi
+    Then the function defined under "@app.post("/aipainter")" is executed and the response is sent back to the frontend.
+    
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
