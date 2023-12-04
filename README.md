@@ -130,10 +130,10 @@ This project is licensed under the MIT License - see the [LICENSE.md](https://gi
 
 If you have any questions, please contact us
 
-[Rabbit-SH] : 0324suhyun@gmail.com | <br/>
-[Hyewoong] : n417759@gmail.com | <br/>
-[cocoball] : wlrn0514@gmail.com | <br/>
-[Jinujara] : herjinwo@gmail.com | <br/>
+[Rabbit-SH] : 0324suhyun@gmail.com  <br/>
+[Hyewoong] : n417759@gmail.com  <br/>
+[cocoball] : wlrn0514@gmail.com  <br/>
+[Jinujara] : herjinwo@gmail.com  <br/>
 [minjeongKim21] : minddong21@gmail.com 
 
 
