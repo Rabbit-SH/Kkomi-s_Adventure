@@ -101,7 +101,7 @@ The frontend receives requests through axios and provides API according to get o
 
 ## For More information 
 
-Check out our other repository here [Kkomi's_Adventure_Front_end](https://github.com/Rabbit-SH/Untact_Exploration)
+Check out our other repository here [Kkomi's_Adventure_For_Developer](https://github.com/Rabbit-SH/Untact_Exploration)
 
 
 ## Datasets
