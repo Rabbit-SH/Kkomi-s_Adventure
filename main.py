@@ -53,7 +53,10 @@ async def aipainter(background_tasks: BackgroundTasks, file: UploadFile = File(.
         with open(input_image_path, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
         # 변환 이미지 파일명, 경로 설정.
-        convert_image_path = f"./b_course/output/watertoad_{convertoption}_converted_{file.filename}"
+        # 폴더가 없으면 생성.
+        convert_path = "./b_course/output/"
+        os.makedirs(convert_path, exist_ok=True)
+        convert_image_path = f"{convert_path}watertoad_{convertoption}_converted_{file.filename}"
         
         # Aipainting 옵션
         if (convertoption==1):
