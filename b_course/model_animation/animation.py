@@ -15,32 +15,12 @@ torch.backends.cudnn.deterministic = True
 
 
 def load_image(image_path):
-    # Open the image file
-    img = Image.open(image_path)
-    
-    # Get the EXIF data of the image
-    try:
-        exif = dict(img._getexif().items())
-        # Rotate the image based on its orientation in the EXIF data
-        if exif[ExifTags.TAGS['Orientation']] == 3:
-            img = img.rotate(180, expand=True)
-        elif exif[ExifTags.TAGS['Orientation']] == 6:
-            img = img.rotate(270, expand=True)
-        elif exif[ExifTags.TAGS['Orientation']] == 8:
-            img = img.rotate(90, expand=True)
-    except (AttributeError, KeyError, IndexError):
-        # Handle cases where there is no EXIF data or errors occur
-        pass
+    img = Image.open(image_path).convert("RGB")
 
-    # Convert the image to RGB mode
-    img = img.convert("RGB")
-
-    # Set the maximum size for the image
     max_size = 1080
     width, height = img.size
     aspect_ratio = width / height
 
-    # Resize the image while maintaining its aspect ratio
     if width > height:
         new_height = max_size
         new_width = int(max_size * aspect_ratio)
