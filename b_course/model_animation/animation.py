@@ -1,14 +1,14 @@
 import os
 import argparse
 
-from PIL import Image,ExifTags
+from PIL import Image, ExifTags
 import numpy as np
 
 import torch
 from torchvision.transforms.functional import to_tensor, to_pil_image
 from .model import Generator
 
-# CUDA 설정 비 활성화
+# Disable CUDA settings
 torch.backends.cudnn.enabled = False
 torch.backends.cudnn.benchmark = False
 torch.backends.cudnn.deterministic = True
@@ -17,7 +17,7 @@ torch.backends.cudnn.deterministic = True
 def load_image(image_path):
     img = Image.open(image_path)
 
-    # Exif 데이터 확인하여 회전 각도 결정
+    # Checking Exif data to determine rotation angle
     try:
         for orientation in ExifTags.TAGS.keys():
             if ExifTags.TAGS[orientation] == 'Orientation':
@@ -31,9 +31,9 @@ def load_image(image_path):
         elif exif[orientation] == 8:
             img = img.rotate(90, expand=True)
     except (AttributeError, KeyError, IndexError):
-        pass  # Exif 데이터를 찾을 수 없거나 처리할 수 없는 경우
+        pass  # Unable to find or handle Exif data
 
-    # 이미지 크기 조정
+    # Resizing the image
     max_size = 1080
     width, height = img.size
     aspect_ratio = width / height
@@ -50,28 +50,27 @@ def load_image(image_path):
     return img
 
 
-# 모델 초기화 및 이미지 변환을 수행하는 함수
+# Function to initialize the model and perform image transformation
 def animation(
     input_image,
     output_image,
     checkpoint="./b_course/model_animation/weights/face_paint_512_v2.pt",
     device=torch.device('cuda' if torch.cuda.is_available() else 'cpu'),
 ):
-    # 모델 초기화
+    # Initializing the model
     net = Generator()
     net.load_state_dict(torch.load(checkpoint, map_location=device))
     net.to(device).eval()
 
-    # 이미지 처리
+    # Image processing
     image = load_image(input_image)
     with torch.no_grad():
         image_tensor = to_tensor(image).unsqueeze(0) * 2 - 1
         out = net(
             image_tensor.to(device), False
-        ).cpu()  # upsample_align 매개변수는 기본적으로 False로 설정
+        ).cpu()  # The upsample_align parameter is set to False by default
         out = out.squeeze(0).clip(-1, 1) * 0.5 + 0.5
         out = to_pil_image(out)
         out.save(output_image)
-        out.show()
-
+     
     print(f"Image converted and saved: {output_image}")
