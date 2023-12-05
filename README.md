@@ -101,7 +101,7 @@ The frontend receives requests through axios and provides API according to get o
 
 ## For More information 
 
-Check out our other repository here [Kkomi's_Adventure_Front_end](https://github.com/Rabbit-SH/Untact_Exploration)
+Check out our other repository here [Kkomi's_Adventure_For_Developer](https://github.com/Rabbit-SH/Untact_Exploration)
 
 
 ## Datasets
@@ -121,7 +121,7 @@ Sound source : [에코샵홀씨(주)/김현태](https://wholesee.com/)
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/Rabbit-SH/Kkomi-s_Adventure/blob/main/LICENSE) file for details
 
 ## Related Projects
 [AnimeGANv2-pytorch](https://github.com/bryandlee/animegan2-pytorch) | [White-box-Cartoonization](https://github.com/SystemErrorWang/White-box-Cartoonization) | [p2gan](https://github.com/i-evi/p2gan). | [Leaflet](https://github.com/Leaflet/Leaflet) | [Vue](https://github.com/vuejs) | [Vuetify](https://github.com/vuetifyjs/vuetify) | [Vuex](https://github.com/vuejs/vuex) | [Openstreetmap](opendatacommons.org)
@@ -130,10 +130,10 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 If you have any questions, please contact us
 
-[Rabbit-SH] : 0324suhyun@gmail.com |
-[Hyewoong] : n417759@gmail.com | 
-[cocoball] : wlrn0514@gmail.com |
-[Jinujara] : herjinwo@gmail.com | 
-[minjeongKim21] : minddong21@gmail.com
+[Rabbit-SH] : 0324suhyun@gmail.com  <br/>
+[Hyewoong] : n417759@gmail.com  <br/>
+[cocoball] : wlrn0514@gmail.com  <br/>
+[Jinujara] : herjinwo@gmail.com  <br/>
+[minjeongKim21] : minddong21@gmail.com 
 
 
