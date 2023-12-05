@@ -30,8 +30,6 @@ def load_image(image_path):
 
     img = img.resize((new_width, new_height))
 
-    return img
-
 
 # 모델 초기화 및 이미지 변환을 수행하는 함수
 def animation(
