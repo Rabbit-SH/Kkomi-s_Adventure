@@ -15,8 +15,25 @@ torch.backends.cudnn.deterministic = True
 
 
 def load_image(image_path):
-    img = Image.open(image_path).convert("RGB")
+    img = Image.open(image_path)
 
+    # Exif 데이터 확인하여 회전 각도 결정
+    try:
+        for orientation in ExifTags.TAGS.keys():
+            if ExifTags.TAGS[orientation] == 'Orientation':
+                break
+        exif = dict(img._getexif().items())
+
+        if exif[orientation] == 3:
+            img = img.rotate(180, expand=True)
+        elif exif[orientation] == 6:
+            img = img.rotate(270, expand=True)
+        elif exif[orientation] == 8:
+            img = img.rotate(90, expand=True)
+    except (AttributeError, KeyError, IndexError):
+        pass  # Exif 데이터를 찾을 수 없거나 처리할 수 없는 경우
+
+    # 이미지 크기 조정
     max_size = 1080
     width, height = img.size
     aspect_ratio = width / height
@@ -29,6 +46,8 @@ def load_image(image_path):
         new_height = int(max_size / aspect_ratio)
 
     img = img.resize((new_width, new_height))
+
+    return img
 
 
 # 모델 초기화 및 이미지 변환을 수행하는 함수
@@ -53,5 +72,6 @@ def animation(
         out = out.squeeze(0).clip(-1, 1) * 0.5 + 0.5
         out = to_pil_image(out)
         out.save(output_image)
+        out.show()
 
     print(f"Image converted and saved: {output_image}")
