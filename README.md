@@ -1,7 +1,8 @@
 # Kkomi's_Adventure(Watertoad_Course)
 ![Service image](images/Service_image/Service_image.jpg)
 This code for the watertoad course of the Chiak Mountain Exploration program of the Korea National Park Service.
-<img src="images/Service_image/kkomi.JPG" alt="real_image" width="180" height="180" />
+<img src="images/Service_image/kkomi.JPG" alt="real_image"  style="max-height: 100%; width: auto;">
+
 
 
 ## Main Function 
